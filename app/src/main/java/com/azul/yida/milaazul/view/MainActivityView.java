@@ -1,39 +1,34 @@
 package com.azul.yida.milaazul.view;
 
-import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.azul.yida.milaazul.R;
 import com.azul.yida.milaazul.common.Mlog;
-import com.azul.yida.milaazul.presenter.base.BaseConfirmFragment;
-import com.azul.yida.milaazul.presenter.base.BaseLoadingFragment;
 import com.azul.yida.milaazul.view.base.MvpView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import com.azul.yida.milaazul.weidget.BaseLoadingLayout;
 
 public class MainActivityView extends MvpView {
 
     @BindView(R.id.lay_content)
-    ViewGroup layContent;
+    BaseLoadingLayout layContent;
 
     @OnClick(R.id.bt_show)
     public void showDialog(){
         //showLoading();
         //setProgress();
-        startLoading();
+        layContent.startLoading();
         //new BaseLoadingFragment().show(((AppCompatActivity)getActivity()).getSupportFragmentManager(),"");
         Mlog.t("showDialog");
     }
 
     @OnClick(R.id.bt_dissmiss)
     public void dissMiss(){
-        stoptLoading();
+        layContent.stoptLoading();
     }
     @Override
     public int getLayoutId() {

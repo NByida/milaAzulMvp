@@ -11,8 +11,8 @@
     <ProgressBar
         style="@style/MyProgressBar"
         android:id="@+id/progress_bar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"/>
+
+        />
 
     <ImageButton
         android:id="@+id/button"
