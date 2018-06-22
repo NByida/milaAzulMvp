@@ -5,11 +5,15 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.os.Build;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 
 
 import com.azul.yida.milaazul.R;
+import com.azul.yida.milaazul.common.Mlog;
 
 import static com.azul.yida.milaazul.R2.attr.alpha;
 
@@ -31,7 +35,25 @@ public class CircleProgressBar extends View {
     // 字的高度
     private float txtHeight;
     // 总进度
-    private int totalProgress = 100;
+    public  CircleProgressBar(Context context) {
+        super(context);
+
+        initVariable();
+    }
+
+
+    public CircleProgressBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initAttrs(context, attrs);
+        initVariable();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public CircleProgressBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        initAttrs(context, attrs);
+        initVariable();
+    }private int totalProgress = 100;
     // 当前进度
     private int currentProgress;
     // 透明度   private int alpha = 25;
@@ -61,14 +83,21 @@ public class CircleProgressBar extends View {
         textPaint = new Paint();
         textPaint.setAntiAlias(true);
         textPaint.setStyle(Paint.Style.FILL);
+        Mlog.t( String.valueOf(textColor==0xFFFFFF));
         textPaint.setColor(textColor);
         textPaint.setTextSize(radius/2);
         Paint.FontMetrics fm = textPaint.getFontMetrics();
         txtHeight = fm.descent + Math.abs(fm.ascent);
+//        textPaint = new Paint();
+//        textPaint.setAntiAlias(true);
+//        textPaint.setStyle(Paint.Style.FILL);
+//        textPaint.setColor(getContext().getResources().getColor(R.color.colorAccent));
+//        textPaint.setTextSize(20);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
+        //initVariable();
         if (currentProgress >= 0) {
             ringPaint.setAlpha((int) (alpha + ((float) currentProgress / totalProgress)*230));
             RectF oval = new RectF(getWidth() / 2 - radius, getHeight() / 2 - radius, getWidth() / 2 + radius, getHeight() / 2 + radius);
@@ -78,6 +107,10 @@ public class CircleProgressBar extends View {
             txtWidth = textPaint.measureText(txt, 0, txt.length());
             canvas.drawText(txt, getWidth() / 2 - txtWidth / 2, getHeight() / 2 + txtHeight / 4, textPaint);
         }
+
+        canvas.drawText("aa", 200, 600, textPaint);
+        Mlog.t("draw"+getHeight());
+      //  canvas.drawText("sb", getWidth() / 2 - txtWidth / 2, getHeight() / 2 + txtHeight / 4, textPaint);
     }
 
     public void setProgress(int progress) {

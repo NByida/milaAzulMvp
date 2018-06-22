@@ -1,5 +1,8 @@
 package com.azul.yida.milaazul.view;
 
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -10,13 +13,19 @@ import com.azul.yida.milaazul.view.base.MvpView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import com.azul.yida.milaazul.view.myView.CircleProgressBar;
 import com.azul.yida.milaazul.weidget.BaseLoadingLayout;
 
 public class MainActivityView extends MvpView {
 
     @BindView(R.id.lay_content)
     BaseLoadingLayout layContent;
+//
+    @BindView(R.id.circle)
+    CircleProgressBar circle;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @OnClick(R.id.bt_show)
     public void showDialog(){
         //showLoading();
@@ -24,6 +33,13 @@ public class MainActivityView extends MvpView {
         layContent.startLoading();
         //new BaseLoadingFragment().show(((AppCompatActivity)getActivity()).getSupportFragmentManager(),"");
         Mlog.t("showDialog");
+    }
+
+    @Override
+    public void regist(@NonNull LayoutInflater inflater) {
+        super.regist(inflater);
+
+        circle.setProgress(90);
     }
 
     @OnClick(R.id.bt_dissmiss)

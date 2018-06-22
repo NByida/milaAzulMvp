@@ -47,11 +47,11 @@ public class BaseLoadingLayout extends RelativeLayout {
         for(int a=0;a<layContent.getChildCount();a++){
             layContent.getChildAt(a).setVisibility(View.GONE);
         }
-        LayoutInflater layoutInflater=(LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        //loadView=layoutInflater.inflate(R.layout.loading_dialog,null);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             loadView=new ProgressBar(getContext(),null,0,R.style.MyProgressBar);
+        }else {
+            loadView=new ProgressBar(getContext(),null,0);
         }
 
         LayoutParams p = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
