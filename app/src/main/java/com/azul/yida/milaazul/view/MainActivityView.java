@@ -39,7 +39,7 @@ public class MainActivityView extends MvpView {
     public void regist(@NonNull LayoutInflater inflater) {
         super.regist(inflater);
 
-        circle.setProgress(90);
+        circle.setProgress(30);
     }
 
     @OnClick(R.id.bt_dissmiss)

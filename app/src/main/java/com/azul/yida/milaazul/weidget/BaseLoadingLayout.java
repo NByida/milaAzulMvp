@@ -2,10 +2,13 @@ package com.azul.yida.milaazul.weidget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.XmlResourceParser;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
+import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.azul.yida.milaazul.R;
+import com.azul.yida.milaazul.common.Mlog;
 
 /**
  * Created by xuyimin on 2018/6/21.
@@ -32,10 +36,17 @@ public class BaseLoadingLayout extends RelativeLayout {
 
     public BaseLoadingLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        for (int i = 0; i < attrs.getAttributeCount(); i++) {
+            String attributeName = attrs.getAttributeName(i);
+            Mlog.t(String.format("当前属性索引为：%d,索引名为：%s", i,attributeName));
+            if (attributeName.equals("style")) {
+                String attributeValue = attrs.getAttributeValue(i);
+                Mlog.t( "当前属性值为：："+attributeValue); }
+                }
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+   // @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public BaseLoadingLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr,defStyleRes);
     }
@@ -47,12 +58,32 @@ public class BaseLoadingLayout extends RelativeLayout {
         for(int a=0;a<layContent.getChildCount();a++){
             layContent.getChildAt(a).setVisibility(View.GONE);
         }
+        final Resources res = getContext().getResources();
+        final XmlResourceParser parser = res.getLayout(R.layout.progress_bar_style);
+        final AttributeSet attrs = Xml.asAttributeSet(parser);
+        Mlog.t( "startLoading111@"+ attrs.getAttributeCount());
+        for (int i = 0; i < attrs.getAttributeCount(); i++) {
+            String attributeName = attrs.getAttributeName(i);
+            Mlog.t(String.format("当前属性索引为：%d,索引名为：%s", i,attributeName));
+            if (attributeName.equals("style")) {
+                String attributeValue = attrs.getAttributeValue(i);
+                Mlog.t( "当前属性值为：："+attributeValue);
+
+
+            }
+
+        }
+
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            loadView=new ProgressBar(getContext(),null,0,R.style.MyProgressBar);
+            loadView=new ProgressBar(getContext(),null,R.attr.myProgressBaraaa,0);
+            ProgressBar progressBar=(ProgressBar)loadView;
+
         }else {
-            loadView=new ProgressBar(getContext(),null,0);
+           //6 loadView=new ProgressBar(getContext(),null,0);
         }
+      //  loadView=new ProgressBar(getContext(),null, R.attr.myProgressBar);
 
         LayoutParams p = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         p.addRule(RelativeLayout.CENTER_IN_PARENT);

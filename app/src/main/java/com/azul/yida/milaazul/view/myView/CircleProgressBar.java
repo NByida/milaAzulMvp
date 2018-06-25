@@ -1,5 +1,6 @@
 package com.azul.yida.milaazul.view.myView;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -37,7 +38,7 @@ public class CircleProgressBar extends View {
     // 总进度
     public  CircleProgressBar(Context context) {
         super(context);
-
+        Mlog.t("1");
         initVariable();
     }
 
@@ -45,13 +46,16 @@ public class CircleProgressBar extends View {
     public CircleProgressBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initAttrs(context, attrs);
+        Mlog.t("3");
         initVariable();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public CircleProgressBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initAttrs(context, attrs);
+        Mlog.t("4");
         initVariable();
     }private int totalProgress = 100;
     // 当前进度
@@ -61,15 +65,17 @@ public class CircleProgressBar extends View {
     public CircleProgressBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         initAttrs(context, attrs);
+        Mlog.t("2");
         initVariable();
     }
 
     private void initAttrs(Context context, AttributeSet attrs) {
-        TypedArray typeArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CircleProgressbar, 0 , 0);
+        TypedArray typeArray = context.obtainStyledAttributes(attrs, R.styleable.CircleProgressbar, R.attr.defaultStyle , R.style.DefaultCustomViewStyle);
         radius = typeArray.getDimension(R.styleable.CircleProgressbar_radius, 80);
         strokeWidth = typeArray.getDimension(R.styleable.CircleProgressbar_strokeWidth, 10);
         ringColor = typeArray.getColor(R.styleable.CircleProgressbar_ringColor, 0xFF0000);
         textColor = typeArray.getColor(R.styleable.CircleProgressbar_textColor, 0xFFFFFF);
+        typeArray.recycle();
     }
 
     private void initVariable() {
@@ -98,6 +104,7 @@ public class CircleProgressBar extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         //initVariable();
+       // currentProgress=80;
         if (currentProgress >= 0) {
             ringPaint.setAlpha((int) (alpha + ((float) currentProgress / totalProgress)*230));
             RectF oval = new RectF(getWidth() / 2 - radius, getHeight() / 2 - radius, getWidth() / 2 + radius, getHeight() / 2 + radius);
@@ -108,7 +115,7 @@ public class CircleProgressBar extends View {
             canvas.drawText(txt, getWidth() / 2 - txtWidth / 2, getHeight() / 2 + txtHeight / 4, textPaint);
         }
 
-        canvas.drawText("aa", 200, 600, textPaint);
+        canvas.drawText("aa", 200, 200, textPaint);
         Mlog.t("draw"+getHeight());
       //  canvas.drawText("sb", getWidth() / 2 - txtWidth / 2, getHeight() / 2 + txtHeight / 4, textPaint);
     }
