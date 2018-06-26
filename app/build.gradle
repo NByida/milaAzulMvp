@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
-apply plugin:'maven'
+apply plugin: 'maven'
 
-group ='com.github.1582742921@qq.com'
+group = 'com.github.yourname'
 
 android {
     compileSdkVersion 27
