@@ -10,9 +10,6 @@
     <attr name="defaultStyle" format="reference"></attr>
     <attr name="myProgressBaraaa" format="reference"/>
 
-
-
-
     <style name="myProgressBar2" parent="Base.Widget.AppCompat.ProgressBar">
         <item name="android:indeterminateTint" tools:targetApi="lollipop">@color/colorAccent</item>
         <item name="android:indeterminateTintMode" tools:targetApi="lollipop">@color/colorAccent</item>
@@ -26,12 +23,6 @@
         <item name="ringColor">@color/colorAccent</item>
         <item name="textColor">@color/colorAccent</item>
     </style>
-
-
-
-
-
-
 
 </resources>
 

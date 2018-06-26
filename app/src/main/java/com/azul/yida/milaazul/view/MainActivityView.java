@@ -1,26 +1,37 @@
 package com.azul.yida.milaazul.view;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 
 import com.azul.yida.milaazul.R;
-import com.azul.yida.milaazul.common.Mlog;
 import com.azul.yida.milaazul.view.base.MvpView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 import com.azul.yida.milaazul.view.myView.CircleProgressBar;
-import com.azul.yida.milaazul.weidget.BaseLoadingLayout;
+
+
+import com.example2.lrudemo.toast.LoadingLayout;
+import com.example2.lrudemo.toast.SnackBarUtils;
+import com.example2.lrudemo.toast.ToastUtil;
+
 
 public class MainActivityView extends MvpView {
 
     @BindView(R.id.lay_content)
-    BaseLoadingLayout layContent;
+    LoadingLayout layContent;
 //
     @BindView(R.id.circle)
     CircleProgressBar circle;
@@ -32,13 +43,24 @@ public class MainActivityView extends MvpView {
         //setProgress();
         layContent.startLoading();
         //new BaseLoadingFragment().show(((AppCompatActivity)getActivity()).getSupportFragmentManager(),"");
-        Mlog.t("showDialog");
+        ToastUtil toastUtil=new ToastUtil();
+       Toast toast= toastUtil.Indefinite(getRootView().getContext(),"111112345", Snackbar.LENGTH_INDEFINITE).setToastBackground(Color.WHITE,R.drawable.bg_round_white).getToast();
+
+       View view=toast.getView();
+        WindowManager.LayoutParams layoutParams=new WindowManager.LayoutParams();
+       toast.setGravity(Gravity.RIGHT|Gravity.BOTTOM, 200, 200);
+       layoutParams.gravity=Gravity.RIGHT|Gravity.BOTTOM;
+
+       //layoutParams.x=-100;
+      // layoutParams.y=-200;
+       //view.setLayoutParams(layoutParams);
+       toast.show();
+       SnackBarUtils.IndefiniteSnackbar(getRootView(),"aa",R.color.colorAccent, R.color.colorPrimaryDark,R.mipmap.ic_launcher).show();
     }
 
     @Override
     public void regist(@NonNull LayoutInflater inflater) {
         super.regist(inflater);
-
         circle.setProgress(30);
     }
 
@@ -59,7 +81,7 @@ public class MainActivityView extends MvpView {
         View loadView=layoutInflater.inflate(R.layout.loading_dialog,null);
 
         RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams( RelativeLayout.LayoutParams.WRAP_CONTENT,RelativeLayout.LayoutParams.WRAP_CONTENT);
-       p.addRule(RelativeLayout.CENTER_IN_PARENT);
+        p.addRule(RelativeLayout.CENTER_IN_PARENT);
         layContent.addView(loadView,p);
     }
 
