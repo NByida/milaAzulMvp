@@ -37,24 +37,37 @@
         android:layout_height="100dp"
         android:text="dissmiss" />
 
-    <com.example2.lrudemo.toast.LoadingLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/circle1"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginStart="67dp"
+        android:orientation="vertical">
 
-        android:id="@+id/lay_content"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:translationZ="50dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
+
+        <com.example2.lrudemo.toast.LoadingLayout
+
+            android:id="@+id/lay_content"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:translationZ="50dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
 
-        <com.azul.yida.milaazul.view.myView.CircleProgressBar
-            android:background="@color/colorPrimary"
-            android:id="@+id/circle1"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_centerInParent="true"
-            />
-    </com.example2.lrudemo.toast.LoadingLayout>
+            <com.azul.yida.milaazul.view.myView.CircleProgressBar
+                android:background="@color/colorPrimary"
+                android:id="@+id/circle1"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                />
+
+
+        </com.example2.lrudemo.toast.LoadingLayout>
+    </LinearLayout>
 
     <blink
         android:layout_width="wrap_content"
