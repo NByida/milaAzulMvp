@@ -64,7 +64,6 @@ public abstract class MvpView implements BaseView {
     @Override
     public <T extends AppCompatActivity> T getActivity() {
         //return null != rootView ? (T) rootView.getContext() : null;
-
         Context context = rootView.getContext();
         while (context instanceof ContextWrapper) {
             if (context instanceof Activity) {
