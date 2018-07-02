@@ -5,6 +5,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 
 import com.azul.yida.milaazul.R;
+import com.azul.yida.milaazul.presenter.base.BaseLoadingFragment;
 import com.azul.yida.milaazul.view.base.MvpView;
 
 import butterknife.BindView;
@@ -42,7 +44,8 @@ public class MainActivityView extends MvpView {
         //showLoading();
         //setProgress();
         layContent.startLoading();
-        //new BaseLoadingFragment().show(((AppCompatActivity)getActivity()).getSupportFragmentManager(),"");
+      //  new BaseLoadingFragment().show(getActivity().getSupportFragmentManager(),"");
+        showLoading();
         ToastUtil toastUtil=new ToastUtil();
        Toast toast= toastUtil.Indefinite(getRootView().getContext(),"111112345", Snackbar.LENGTH_INDEFINITE).setToastBackground(Color.WHITE,R.drawable.bg_round_white).getToast();
 

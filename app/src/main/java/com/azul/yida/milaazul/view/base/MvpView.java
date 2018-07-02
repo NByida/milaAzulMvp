@@ -1,6 +1,8 @@
 package com.azul.yida.milaazul.view.base;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -61,7 +63,16 @@ public abstract class MvpView implements BaseView {
 
     @Override
     public <T extends AppCompatActivity> T getActivity() {
-        return null != rootView ? (T) rootView.getContext() : null;
+        //return null != rootView ? (T) rootView.getContext() : null;
+
+        Context context = rootView.getContext();
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (T) context;
+            }
+            context = ((ContextWrapper) context).getBaseContext();
+        }
+        return null;
     }
 
     public abstract int getLayoutId();
