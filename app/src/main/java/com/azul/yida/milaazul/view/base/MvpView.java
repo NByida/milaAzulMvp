@@ -42,7 +42,7 @@ public abstract class MvpView implements BaseView {
     @Override
     public void showLoading() {
         this.loadingFragment=new BaseLoadingFragment();
-        loadingFragment.show(getActivity().getSupportFragmentManager(),"");
+        loadingFragment.show(((AppCompatActivity)getActivity()).getSupportFragmentManager(),"");
     }
 
     @Override
@@ -62,16 +62,16 @@ public abstract class MvpView implements BaseView {
     }
 
     @Override
-    public <T extends AppCompatActivity> T getActivity() {
-        //return null != rootView ? (T) rootView.getContext() : null;
-        Context context = rootView.getContext();
-        while (context instanceof ContextWrapper) {
-            if (context instanceof Activity) {
-                return (T) context;
-            }
-            context = ((ContextWrapper) context).getBaseContext();
-        }
-        return null;
+    public <T extends Activity> T getActivity() {
+        return null != rootView ? (T) rootView.getContext() : null;
+//        Context context = rootView.getContext();
+//        while (context instanceof ContextWrapper) {
+//            if (context instanceof Activity) {
+//                return (T) context;
+//            }
+//            context = ((ContextWrapper) context).getBaseContext();
+//        }
+//        return null;
     }
 
     public abstract int getLayoutId();

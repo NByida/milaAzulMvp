@@ -13,6 +13,6 @@ public interface BaseView {
     public void dissmissLoading();
     public void showErrorMessage();
     public void showLongMessage();
-    public <T extends AppCompatActivity> T getActivity();
+    public <T extends Activity> T getActivity();
 
     }
