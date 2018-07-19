@@ -17,7 +17,7 @@ import javax.net.ssl.SSLHandshakeException;
 import io.reactivex.functions.Consumer;
 
 public abstract class BasePresentActivity<T extends MvpView> extends AppCompatActivity {
-    public MvpView mvpView;
+    public T mvpView;
 
 
     @Override

@@ -8,8 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.azul.yida.milaazul.R;
 import com.azul.yida.milaazul.presenter.base.BaseLoadingFragment;
 import com.azul.yida.milaazul.presenter.base.BasePresentActivity;
+import com.example2.lrudemo.toast.ToastUtil;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -73,6 +75,12 @@ public abstract class MvpView implements BaseView {
 //        }
 //        return null;
     }
+
+    public void showToast(String s){
+        new ToastUtil().Short(getActivity(),s).setToastBackground(getActivity().getResources().getColor(R.color.colorYellow),R.drawable.bg_round_white).show();
+    }
+
+
 
     public abstract int getLayoutId();
 }

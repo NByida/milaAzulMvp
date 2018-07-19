@@ -1,5 +1,7 @@
 package com.example2.lrudemo.toast;
 import android.content.Context;
+import android.graphics.Color;
+import android.support.annotation.ColorRes;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -78,6 +80,7 @@ public class ToastUtil {
             TextView message=((TextView) view.findViewById(android.R.id.message));
             ((View)message.getParent()).setBackgroundResource(background);
             message.setTextColor(messageColor);
+           // message.setVisibility(View.GONE);
         }
         return this;
     }
