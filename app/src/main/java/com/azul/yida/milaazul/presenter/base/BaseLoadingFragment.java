@@ -19,10 +19,9 @@ public class BaseLoadingFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog=new Dialog(getActivity());
         dialog.setContentView(R.layout.loading_dialog);
-
-        dialog.setCanceledOnTouchOutside(true);
-        dialog.setCancelable(true);
-        Mlog.t("onCreateDialog");
+        dialog.setCanceledOnTouchOutside(false);
+        //Mlog.t("onCreateDialog");
+        dialog.setCancelable(false);
         Window window = dialog.getWindow();
         WindowManager.LayoutParams params = window.getAttributes();
         params.dimAmount = 0f;

@@ -11,6 +11,7 @@ import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -39,6 +40,7 @@ public interface GankService {
      * @param page 页数
      */
     @GET("data/{type}/{size}/{page}")
+    @Headers("Cache-control:max-stale="+3600)
     Observable<GankModel<List<Gank>>> getData(
             @Path("type") String type, @Path("size") int size, @Path("page") int page);
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -18,9 +19,10 @@ import butterknife.Unbinder;
 
 public abstract class MvpView implements BaseView {
 //    private BasePresentActivity activity;
-    private View rootView;
+    protected View rootView;
     private BaseLoadingFragment loadingFragment;
     private Unbinder unbinder;
+
 
 
 
@@ -76,11 +78,14 @@ public abstract class MvpView implements BaseView {
 //        return null;
     }
 
-    public void showToast(String s){
-        new ToastUtil().Short(getActivity(),s).setToastBackground(getActivity().getResources().getColor(R.color.colorYellow),R.drawable.bg_round_white).show();
+    protected void showToast(String s){
+        new ToastUtil().Short(getActivity(),s).setToastBackground(getActivity().getResources().getColor(R.color.white),R.drawable.bg_round_white).show();
     }
 
-
+    protected void initToolbar(Toolbar toolbar, String title) {
+        toolbar.setTitle(title);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+    }
 
     public abstract int getLayoutId();
 }

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import com.azul.yida.milaazul.view.base.MvpView;
 
@@ -18,6 +19,7 @@ import io.reactivex.functions.Consumer;
 
 public abstract class BasePresentActivity<T extends MvpView> extends AppCompatActivity {
     public T mvpView;
+    protected View rootView;
 
 
     @Override
@@ -39,6 +41,7 @@ public abstract class BasePresentActivity<T extends MvpView> extends AppCompatAc
         if(mvpView.getRootView()!=null){
             setContentView(mvpView.getRootView());
         }
+        rootView=mvpView.getRootView();
 
     }
 
