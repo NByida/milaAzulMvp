@@ -12,13 +12,16 @@ import android.widget.TextView;
 
 import com.azul.yida.milaazul.R;
 import com.azul.yida.milaazul.common.Mlog;
+import com.azul.yida.milaazul.presenter.LifeCycleBasePresenter.BaseDialogFragment;
+import com.azul.yida.milaazul.presenter.LifeCycleBasePresenter.BaseFragment;
+import com.trello.rxlifecycle2.components.support.RxDialogFragment;
 
 /**
  * Created by xuyimin on 2018/6/19.
  * E-mail codingyida@qq.com
  */
 
-public  class BaseConfirmFragment extends DialogFragment{
+public  class BaseConfirmFragment extends BaseDialogFragment{
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog=new Dialog(getActivity());

@@ -1,5 +1,7 @@
 package com.azul.yida.milaazul.view;
 
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -7,9 +9,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import com.azul.yida.milaazul.R;
 import com.azul.yida.milaazul.net.Entity.Gank;
+import com.azul.yida.milaazul.presenter.DailyActivity;
 import com.azul.yida.milaazul.view.adapter.myViewHolder;
 import com.azul.yida.milaazul.view.base.MvpView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -64,11 +68,15 @@ public class MainActivityView extends MvpView {
         recycleView.setAdapter(baseQuickAdapter);
         baseQuickAdapter.setOnItemChildClickListener((a, v, p) -> {
             String string = ((Gank) a.getData().get(p)).getWho();
+            Intent intent=new Intent(getActivity(),DailyActivity.class);
+            intent.putExtra("image",((Gank) a.getData().get(p)).getUrl());
+            getActivity().startActivity(intent);
             showToast(string);
         });
     }
 
     public void setData(List<Gank> arrayList, int page) {
+      // recycleView.setVisibility(View.GONE);
         if (page == 1) {
             baseQuickAdapter.replaceData(arrayList);
         } else {

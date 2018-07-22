@@ -5,6 +5,7 @@ import android.util.Log;
 import com.azul.yida.milaazul.BuildConfig;
 
 public class Mlog {
+    public static boolean LifeOn=true;
 
     public static void i(String tag,String log){
         if(BuildConfig.DEBUG){
@@ -32,5 +33,15 @@ public class Mlog {
         if(BuildConfig.DEBUG){
             Log.d("tag_error:",log);
         }
+    }
+
+    public static void l(String log){
+        if(BuildConfig.DEBUG&&LifeOn){
+            Log.d("tag_lifecycle:",log);
+        }
+    }
+
+    public void  setLifeOn(boolean lifeOn){
+        Mlog.this.LifeOn=lifeOn;
     }
 }

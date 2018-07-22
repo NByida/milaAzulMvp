@@ -57,6 +57,10 @@ dependencies {
     //加载更多
     implementation 'cn.bingoogolapple:bga-refreshlayout:1.1.8'
 
+    //生命周期绑定
+    implementation 'com.trello.rxlifecycle2:rxlifecycle:2.1.0'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.1.0'
+
     implementation project(':toast')
 
 

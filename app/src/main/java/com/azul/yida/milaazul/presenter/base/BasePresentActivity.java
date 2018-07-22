@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.azul.yida.milaazul.presenter.LifeCycleBasePresenter.BaseActivity;
 import com.azul.yida.milaazul.view.base.MvpView;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.io.InterruptedIOException;
 import java.net.SocketException;
@@ -17,7 +19,7 @@ import javax.net.ssl.SSLHandshakeException;
 
 import io.reactivex.functions.Consumer;
 
-public abstract class BasePresentActivity<T extends MvpView> extends AppCompatActivity {
+public abstract class BasePresentActivity<T extends MvpView> extends BaseActivity {
     public T mvpView;
     protected View rootView;
 

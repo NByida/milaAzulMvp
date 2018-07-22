@@ -3,6 +3,7 @@ package com.azul.yida.milaazul.view.base;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.azul.yida.milaazul.R;
+import com.azul.yida.milaazul.presenter.MainActivity;
 import com.azul.yida.milaazul.presenter.base.BaseLoadingFragment;
 import com.azul.yida.milaazul.presenter.base.BasePresentActivity;
 import com.example2.lrudemo.toast.ToastUtil;
@@ -62,6 +64,12 @@ public abstract class MvpView implements BaseView {
 
     @Override
     public void showLongMessage() {
+
+    }
+
+    protected   void  go2Activity(Class<?extends BasePresentActivity>  activity) {
+        Intent intent=new Intent(getActivity(), activity);
+        getActivity().startActivity(intent);
 
     }
 

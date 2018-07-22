@@ -99,6 +99,10 @@ public class ToastUtil {
         return this;
     }
 
+    public static void showToast(Context context, String s){
+        new ToastUtil().Short(context,s).setToastBackground(context.getResources().getColor(R.color.white),R.drawable.bg_round_white).show();
+    }
+
     /**
      * 短时间显示Toast
      */

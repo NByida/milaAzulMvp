@@ -8,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.azul.yida.milaazul.presenter.LifeCycleBasePresenter.BaseFragment;
 import com.azul.yida.milaazul.view.base.MvpView;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
-public abstract class BasePresentFragment<T extends MvpView> extends Fragment{
+public abstract class BasePresentFragment<T extends MvpView> extends BaseFragment{
     private MvpView mvpView;
 
     private void initView(){

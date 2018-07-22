@@ -49,15 +49,14 @@ public class MainActivity extends BasePresentActivity<MainActivityView> implemen
     }
 
 
-
-
     private void pullData(int p){
         mvpView.showLoading();
         service.getData(GankService.福利,10,p)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(model->{
-                    mRefreshLayout.postDelayed(()->mvpView.dissmissLoading(),1000);
+                    mvpView.dissmissLoading();
+                    mRefreshLayout.postDelayed(()->mRefreshLayout.endRefreshing(),1000);
                     if(p==1) mRefreshLayout.postDelayed(()->mRefreshLayout.endRefreshing(),1000);
                     else  mRefreshLayout.postDelayed(()->mRefreshLayout.endLoadingMore(),1000);
                    mvpView.setData(model.getResults(),p);

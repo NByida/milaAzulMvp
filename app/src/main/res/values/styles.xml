@@ -13,12 +13,9 @@
 
     <style name="MyProgressBar" parent="Base.Widget.AppCompat.ProgressBar">
         <item name="android:indeterminateTint"
-            tools:targetApi="lollipop">@color/colorPrimaryDark</item>
-        <item name="android:indeterminateTintMode"
-            tools:targetApi="lollipop">@color/colorPrimaryDark</item>
+            tools:targetApi="lollipop">@color/colorYellow</item>
         <item name="android:minHeight">200dp</item>>
         <item name="android:minWidth">200dp</item>>
-
     </style>
 
     <style name="MyProgressBarRed" parent="Base.Widget.AppCompat.ProgressBar">
