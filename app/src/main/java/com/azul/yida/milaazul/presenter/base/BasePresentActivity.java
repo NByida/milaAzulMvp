@@ -60,7 +60,7 @@ public abstract class BasePresentActivity<T extends MvpView> extends BaseActivit
         @Override
         public void accept(Throwable e) throws Exception {
             e.printStackTrace();
-            Log.e("test","exception");
+            Log.e("test",e.getClass().getName());
             mvpView.dissmissLoading();
             if (e instanceof SSLHandshakeException) {
 

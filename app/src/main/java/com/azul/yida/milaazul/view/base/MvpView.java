@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -16,8 +17,15 @@ import com.azul.yida.milaazul.presenter.base.BaseLoadingFragment;
 import com.azul.yida.milaazul.presenter.base.BasePresentActivity;
 import com.example2.lrudemo.toast.ToastUtil;
 
+import java.io.InterruptedIOException;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+
+import javax.net.ssl.SSLHandshakeException;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.functions.Consumer;
 
 public abstract class MvpView implements BaseView {
 //    private BasePresentActivity activity;
@@ -76,17 +84,9 @@ public abstract class MvpView implements BaseView {
     @Override
     public <T extends Activity> T getActivity() {
         return null != rootView ? (T) rootView.getContext() : null;
-//        Context context = rootView.getContext();
-//        while (context instanceof ContextWrapper) {
-//            if (context instanceof Activity) {
-//                return (T) context;
-//            }
-//            context = ((ContextWrapper) context).getBaseContext();
-//        }
-//        return null;
     }
 
-    protected void showToast(String s){
+    public void showToast(String s){
         new ToastUtil().Short(getActivity(),s).setToastBackground(getActivity().getResources().getColor(R.color.white),R.drawable.bg_round_white).show();
     }
 
@@ -96,4 +96,27 @@ public abstract class MvpView implements BaseView {
     }
 
     public abstract int getLayoutId();
+
+    public class errorConsumer implements Consumer<Throwable> {
+
+        @Override
+        public void accept(Throwable e) throws Exception {
+            e.printStackTrace();
+            Log.e("test",e.getClass().getName());
+           dissmissLoading();
+            if (e instanceof SSLHandshakeException) {
+                showToast("请检关闭");
+            } else if (e instanceof InterruptedIOException ||
+                    e instanceof SocketException
+                    || e instanceof UnknownHostException) {
+                showToast("请检查网络");
+            } else {
+                //先注释掉，服务端总是报500，好烦。
+                showToast("光纤被挖断");
+                Log.e("test",""+getClass().getName()+":exception:"+e);
+            }
+        }
+    }
+
+    public errorConsumer consumer=new errorConsumer();
 }

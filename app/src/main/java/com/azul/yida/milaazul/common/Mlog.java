@@ -5,7 +5,7 @@ import android.util.Log;
 import com.azul.yida.milaazul.BuildConfig;
 
 public class Mlog {
-    public static boolean LifeOn=true;
+    public static boolean LifeOn=false;
 
     public static void i(String tag,String log){
         if(BuildConfig.DEBUG){

@@ -38,7 +38,7 @@ public class CircleProgressBar extends View {
     // 总进度
     public  CircleProgressBar(Context context) {
         super(context);
-        Mlog.t("1");
+        //Mlog.t("1");
         initVariable();
     }
 
@@ -46,7 +46,6 @@ public class CircleProgressBar extends View {
     public CircleProgressBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initAttrs(context, attrs);
-        Mlog.t("3");
         initVariable();
     }
 
@@ -55,7 +54,7 @@ public class CircleProgressBar extends View {
     public CircleProgressBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initAttrs(context, attrs);
-        Mlog.t("4");
+     //   Mlog.t("4");
         initVariable();
     }private int totalProgress = 100;
     // 当前进度
@@ -65,7 +64,6 @@ public class CircleProgressBar extends View {
     public CircleProgressBar(Context context, AttributeSet attrs) {
         super(context, attrs);
         initAttrs(context, attrs);
-        Mlog.t("2");
         initVariable();
     }
 
@@ -116,7 +114,7 @@ public class CircleProgressBar extends View {
         }
 
         canvas.drawText("aa", 200, 200, textPaint);
-        Mlog.t("draw"+getHeight());
+
       //  canvas.drawText("sb", getWidth() / 2 - txtWidth / 2, getHeight() / 2 + txtHeight / 4, textPaint);
     }
 

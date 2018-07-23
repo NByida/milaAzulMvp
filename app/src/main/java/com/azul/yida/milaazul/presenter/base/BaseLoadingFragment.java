@@ -89,7 +89,7 @@ public class BaseLoadingFragment extends BaseDialogFragment {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void changeColor(){
-        Mlog.t("tintColor@"+"111");
+       // Mlog.t("tintColor@"+"111");
 //        ObjectAnimator.ofInt(circleProgressBar,"TintColor",AzulApp.getInstance().getResources().getColor(R.color.colorPrimary),AzulApp.getInstance().getResources().getColor(R.color.colorAccent))
 //        .setDuration(list.size()*1000).start();
 //        ValueAnimator valueAnimator = ValueAnimator.ofInt(circleProgressBar.getTintColor(),list.get(0),list.get(2),list.get(1),list.get(3),list.get(4),list.get(5),list.get(6));
@@ -103,7 +103,7 @@ public class BaseLoadingFragment extends BaseDialogFragment {
                 .subscribe(n->{
                     ColorStateList colorStateList = ColorStateList.valueOf(list.get((int) (n%list.size())));
                   circleProgressBar.setIndeterminateTintList(colorStateList);
-                    Mlog.t(n%color.length+"");
+
                 });
     }
 

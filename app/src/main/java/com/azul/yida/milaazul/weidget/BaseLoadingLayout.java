@@ -38,10 +38,10 @@ public class BaseLoadingLayout extends RelativeLayout {
         super(context, attrs, defStyleAttr);
         for (int i = 0; i < attrs.getAttributeCount(); i++) {
             String attributeName = attrs.getAttributeName(i);
-            Mlog.t(String.format("当前属性索引为：%d,索引名为：%s", i,attributeName));
             if (attributeName.equals("style")) {
                 String attributeValue = attrs.getAttributeValue(i);
-                Mlog.t( "当前属性值为：："+attributeValue); }
+
+            }
                 }
     }
 

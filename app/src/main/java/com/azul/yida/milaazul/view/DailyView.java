@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.azul.yida.milaazul.R;
+import com.azul.yida.milaazul.common.ImgLoader;
 import com.azul.yida.milaazul.common.Mlog;
 import com.azul.yida.milaazul.net.Entity.Gank;
 import com.azul.yida.milaazul.view.adapter.myViewHolder;
@@ -27,17 +28,21 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example2.lrudemo.toast.DisplayUtils;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.internal.operators.observable.ObservableCreate;
 import io.reactivex.internal.schedulers.IoScheduler;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.trello.rxlifecycle2.RxLifecycle.bindUntilEvent;
 import static java.lang.StrictMath.abs;
 
 public class DailyView extends MvpView {
@@ -95,8 +100,8 @@ public class DailyView extends MvpView {
 
            // nestedScrollView.getBackground().setAlpha((int)(b*(float)255));
 
-            Mlog.t("alpha"+(int)(a*(float)255)+"a" +
-                    ""+a);
+           // Mlog.t("alpha"+(int)(a*(float)255)+"a" +
+                   // ""+a);
         });
 
     }
@@ -107,49 +112,25 @@ public class DailyView extends MvpView {
     }
 
     public void setImage(String image){
-
-        //Glide.with(getActivity()).load(image).asBitmap()
-        Observable.create(e -> {
-
-            e.onNext(getBitmap(image));
-        })
+        getBitmap(image)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(b->{
-//                    CollapsingToolbarLayout.LayoutParams layoutParams=new CollapsingToolbarLayout.LayoutParams(1080,getBitmapHeight((Bitmap) b));
-//                    imageView.setLayoutParams(layoutParams);
                     Class<? extends ViewGroup.LayoutParams> LayoutParamsClass=imageView.getLayoutParams().getClass();
                     imageView.setLayoutParams( LayoutParamsClass.getDeclaredConstructor(int.class,int.class).newInstance(((WindowManager) getActivity()
-                            .getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getWidth(),300+getBitmapHeight((Bitmap) b)));
-
-                    imageView.setImageBitmap((Bitmap) b);
-                    imageView.requestLayout();
-//                    imageView.setLayoutParams(imageView.getLayoutParams());
-                    int height=imageView.getLayoutParams().height;
-                    int width=imageView.getLayoutParams().width;
-                    Mlog.t("w:"+width+"h:"+height);
-                    Mlog.t(""+imageView.getLayoutParams().getClass());
-                });
-
-
-
-    }
-    private Bitmap getBitmap(String image){
-        Bitmap  myBitmap=null;
-        try {
-              myBitmap = Glide.with(getActivity())
-                    .load(image)
-                    .asBitmap()
-                    .centerCrop()
-                    .into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-                    .get();
-            Mlog.t("get bitmap success");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+                            .getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getWidth(),getBitmapHeight((Bitmap) b)));
+                    imageView.setImageBitmap(b);
+                    },consumer::accept);
         }
-        return    myBitmap;
+    public Observable<Bitmap> getBitmap(String image){
+        return Observable.create(e->{
+            try {
+                e.onNext(ImgLoader.getInstance().getBitmap(getActivity(),image));
+            }catch (Throwable throwable){
+                throwable.printStackTrace();
+                e.onError(throwable);
+            }
+        });
     }
     /**
      * 还能向下滑动多少
@@ -160,7 +141,7 @@ public class DailyView extends MvpView {
                 .getSystemService(Context.WINDOW_SERVICE);
         int width = wm.getDefaultDisplay().getWidth();
         float rate=((float) bitmap.getHeight())/((float) bitmap.getWidth());
-        Mlog.t("bitmap.getHeight():"+bitmap.getHeight()+"bitmap.getWidth():"+bitmap.getWidth());
+      //  Mlog.t("bitmap.getHeight():"+bitmap.getHeight()+"bitmap.getWidth():"+bitmap.getWidth());
         return (int) ((float)width*rate);
     }
 

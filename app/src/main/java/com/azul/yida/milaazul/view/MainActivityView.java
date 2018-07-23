@@ -59,7 +59,6 @@ public class MainActivityView extends MvpView {
             protected void convert(myViewHolder helper, Gank item) {
                 helper.setIamgeUrl(getActivity(), R.id.im_beauty, item.getUrl());
                 helper.setText(R.id.tv_time, item.getCreatedAt());
-                helper.setText(R.id.tv_title, item.getPicName());
                 helper.addOnClickListener(R.id.im_beauty);
                 // helper.setImageResource(R.id.im_beauty, Resources.getSystem().getIdentifier("ProgressBar_progressDrawable", "drawable", "android"));
             }
@@ -69,7 +68,7 @@ public class MainActivityView extends MvpView {
         baseQuickAdapter.setOnItemChildClickListener((a, v, p) -> {
             String string = ((Gank) a.getData().get(p)).getWho();
             Intent intent=new Intent(getActivity(),DailyActivity.class);
-            intent.putExtra("image",((Gank) a.getData().get(p)).getUrl());
+            intent.putExtra("gank",(Gank) a.getData().get(p));
             getActivity().startActivity(intent);
             showToast(string);
         });

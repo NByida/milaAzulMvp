@@ -34,7 +34,7 @@ public  class BaseConfirmFragment extends BaseDialogFragment{
         dialog.setContentView(parent);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
-        Mlog.t("onCreateDialog");
+        //Mlog.t("onCreateDialog");
         dialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_transparent));
         return dialog;
     }

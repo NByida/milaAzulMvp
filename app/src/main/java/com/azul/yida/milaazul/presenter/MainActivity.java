@@ -56,14 +56,12 @@ public class MainActivity extends BasePresentActivity<MainActivityView> implemen
                 .subscribeOn(Schedulers.io())
                 .subscribe(model->{
                     mvpView.dissmissLoading();
-                    mRefreshLayout.postDelayed(()->mRefreshLayout.endRefreshing(),1000);
-                    if(p==1) mRefreshLayout.postDelayed(()->mRefreshLayout.endRefreshing(),1000);
-                    else  mRefreshLayout.postDelayed(()->mRefreshLayout.endLoadingMore(),1000);
+                    if(p==1) mRefreshLayout.endRefreshing();
+                    else  mRefreshLayout.endLoadingMore();
                    mvpView.setData(model.getResults(),p);
                 },e->{consumer.accept(e);
-
-                    if(p==1) mRefreshLayout.postDelayed(()->mRefreshLayout.endRefreshing(),1000);
-                    else  mRefreshLayout.postDelayed(()->mRefreshLayout.endLoadingMore(),1000);
+                    if(p==1)mRefreshLayout.endRefreshing();
+                    else  mRefreshLayout.endLoadingMore();
                 });
     }
 
@@ -74,12 +72,9 @@ public class MainActivity extends BasePresentActivity<MainActivityView> implemen
 
     @SuppressLint("ResourceType")
     private void initRefreshLayout(BGARefreshLayout refreshLayout) {
-        mRefreshLayout = (BGARefreshLayout) findViewById(R.id.rl_modulename_refresh);
+        mRefreshLayout =  findViewById(R.id.rl_modulename_refresh);
         mRefreshLayout.setDelegate(this);
-        // 为BGARefreshLayout 设置代理
-        BGArefrashViewHolder refreshViewHolder = new BGArefrashViewHolder(this, true) {
-        };
-        // 设置下拉刷新和上拉加载更多的风格
+        BGArefrashViewHolder refreshViewHolder = new BGArefrashViewHolder(this, true) {};
         mRefreshLayout.setIsShowLoadingMoreView(true);
         refreshViewHolder.setLoadingMoreText("疯狂加载中...");
         refreshViewHolder.setStickinessColor(R.color.colorAccent);
@@ -91,15 +86,11 @@ public class MainActivity extends BasePresentActivity<MainActivityView> implemen
     public void onBGARefreshLayoutBeginRefreshing(BGARefreshLayout refreshLayout) {
         page=1;
         pullData(1);
-       // mvpView.showToast("刷新成功");
     }
 
     @Override
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
         pullData(++page);
-       // mvpView.showToast("10张小姐姐已经添加");
         return true;
     }
-
-
 }

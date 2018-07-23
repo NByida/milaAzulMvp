@@ -8,6 +8,7 @@ import com.azul.yida.milaazul.BuildConfig;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.CertificatePinner;
@@ -69,6 +70,7 @@ public class RetrofitInstance {
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
                     .addInterceptor(loggingInterceptor)
+                    .readTimeout(5000, TimeUnit.MILLISECONDS)
                     .cache(cache)
                     .build();
         return client;
