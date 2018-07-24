@@ -4,8 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.azul.yida.milaazul.common.Mlog;
+import com.azul.yida.milaazul.event.loadNetworkEvent;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -17,6 +22,7 @@ public class BaseActivity extends RxAppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         tag=getLocalClassName()+"-----";
         Mlog.l(tag+"onCreate");
     }
@@ -54,6 +60,7 @@ public class BaseActivity extends RxAppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
         Mlog.l(tag+"onDestroy");
     }
 
@@ -63,4 +70,6 @@ public class BaseActivity extends RxAppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(bindUntilEvent(ActivityEvent.DESTROY));
     }
+
+
 }

@@ -16,6 +16,7 @@ import com.azul.yida.milaazul.net.Entity.Gank;
 import com.azul.yida.milaazul.presenter.DailyActivity;
 import com.azul.yida.milaazul.view.adapter.myViewHolder;
 import com.azul.yida.milaazul.view.base.MvpView;
+import com.azul.yida.milaazul.weidget.SmartToolbar;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.List;
@@ -29,9 +30,10 @@ public class MainActivityView extends MvpView {
     @BindView(R.id.recycle_view)
     RecyclerView recycleView;
     @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    SmartToolbar toolbar;
     @BindView(R.id.rl_modulename_refresh)
     BGARefreshLayout rlModulenameRefresh;
+
 
     private BaseQuickAdapter<Gank, myViewHolder> baseQuickAdapter;
 
@@ -43,7 +45,8 @@ public class MainActivityView extends MvpView {
     public void regist(@NonNull LayoutInflater inflater) {
         super.regist(inflater);
         initRv();
-        initToolbar(toolbar,"Gank MEIZI :-)");
+        toolbar.setTitle("Gank");
+        toolbar.setNavigationIcon(R.color.colorPrimary);
     }
 
 
@@ -84,5 +87,8 @@ public class MainActivityView extends MvpView {
         baseQuickAdapter.notifyDataSetChanged();
     }
 
-
+    @Override
+    public View getToolbar() {
+        return toolbar;
+    }
 }

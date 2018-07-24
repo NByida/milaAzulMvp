@@ -3,13 +3,17 @@ package com.azul.yida.milaazul.presenter.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 
+import com.azul.yida.milaazul.event.loadNetworkEvent;
 import com.azul.yida.milaazul.presenter.LifeCycleBasePresenter.BaseActivity;
 import com.azul.yida.milaazul.view.base.MvpView;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.InterruptedIOException;
 import java.net.SocketException;
@@ -42,6 +46,10 @@ public abstract class BasePresentActivity<T extends MvpView> extends BaseActivit
         mvpView.regist(LayoutInflater.from(this));
         if(mvpView.getRootView()!=null){
             setContentView(mvpView.getRootView());
+            if (mvpView.getToolbar() instanceof Toolbar) {
+                Toolbar toolbar = (Toolbar) mvpView.getToolbar();
+                setSupportActionBar(toolbar);
+            }
         }
         rootView=mvpView.getRootView();
 
@@ -55,26 +63,44 @@ public abstract class BasePresentActivity<T extends MvpView> extends BaseActivit
         mvpView.unRegist();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (getMenuRes() != 0) getMenuInflater().inflate(getMenuRes(), menu);
+        return true;
+    }
+
+    protected int getMenuRes() {
+        return 0;
+    }
+
     public class errorConsumer implements Consumer<Throwable>{
 
         @Override
         public void accept(Throwable e) throws Exception {
             e.printStackTrace();
+            mvpView.showSnackbar();
             Log.e("test",e.getClass().getName());
             mvpView.dissmissLoading();
             if (e instanceof SSLHandshakeException) {
-
+                //mvpView.showToast("请关闭");
             } else if (e instanceof InterruptedIOException ||
                     e instanceof SocketException
                     || e instanceof UnknownHostException) {
-                //mView.showErrorMsg(getString(R.string.check_your_network));
+               // mvpView.showToast("请检查网络设置");
             } else {
                 //先注释掉，服务端总是报500，好烦。
-                //mView.showErrorMsg(getString(R.string.server_error));
+                //mvpView.showToast("请检查网络设置");
                 Log.e("test",""+getLocalClassName()+":exception:"+e);
             }
         }
     }
 
     public errorConsumer consumer=new errorConsumer();
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLoadNetworkEvent(loadNetworkEvent loadNetworkEvent){
+        onNetWorkErorRetry();
+    }
+
+    public  abstract void  onNetWorkErorRetry();
 }

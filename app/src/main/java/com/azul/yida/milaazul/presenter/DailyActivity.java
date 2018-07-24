@@ -26,11 +26,17 @@ public class DailyActivity extends BasePresentActivity<DailyView> {
         gank=getIntent().getParcelableExtra("gank");
         String image=gank.getUrl();
         String desc=gank.getDesc();
-        year=desc.substring(0,4);
-        month=desc.substring(5,7);
-        day=desc.substring(8,10);
-        mvpView.setImage(image);
-        getSomeDayDetail(year,month,day);
+        try{
+            year=desc.substring(0,4);
+            month=desc.substring(5,7);
+            day=desc.substring(8,10);
+            mvpView.setImage(image);
+            getSomeDayDetail(year,month,day);
+        }catch (StringIndexOutOfBoundsException e){
+            mvpView.showToast(e.toString());
+            e.printStackTrace();
+        }
+
     }
 
     private void getSomeDayDetail(String year,String month,String day){
@@ -44,6 +50,11 @@ public class DailyActivity extends BasePresentActivity<DailyView> {
                           else{
 
                           }},consumer::accept);
+    }
+
+
+    public void onNetWorkErorRetry(){
+        getSomeDayDetail(year,month,day);
     }
 
 

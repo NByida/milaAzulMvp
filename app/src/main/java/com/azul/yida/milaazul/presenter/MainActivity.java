@@ -45,19 +45,20 @@ public class MainActivity extends BasePresentActivity<MainActivityView> implemen
         mRefreshLayout=rootView.findViewById(R.id.rl_modulename_refresh);
         initRefreshLayout(mRefreshLayout);
         service= RetrofitInstance.getInstance().getGankService(this);
-        pullData(1);
+        mRefreshLayout.beginRefreshing();
     }
 
 
     private void pullData(int p){
+        Mlog.t("pullData");
         mvpView.showLoading();
         service.getData(GankService.福利,10,p)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(model->{
                     mvpView.dissmissLoading();
-                    if(p==1) mRefreshLayout.endRefreshing();
-                    else  mRefreshLayout.endLoadingMore();
+                    if(p==1) {mRefreshLayout.endRefreshing();}
+                    else { mRefreshLayout.endLoadingMore();}
                    mvpView.setData(model.getResults(),p);
                 },e->{consumer.accept(e);
                     if(p==1)mRefreshLayout.endRefreshing();
@@ -92,5 +93,9 @@ public class MainActivity extends BasePresentActivity<MainActivityView> implemen
     public boolean onBGARefreshLayoutBeginLoadingMore(BGARefreshLayout refreshLayout) {
         pullData(++page);
         return true;
+    }
+
+    public void onNetWorkErorRetry(){
+        pullData(page);
     }
 }

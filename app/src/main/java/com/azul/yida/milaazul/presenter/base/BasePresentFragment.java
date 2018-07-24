@@ -8,9 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.azul.yida.milaazul.event.loadNetworkEvent;
 import com.azul.yida.milaazul.presenter.LifeCycleBasePresenter.BaseFragment;
 import com.azul.yida.milaazul.view.base.MvpView;
 import com.trello.rxlifecycle2.components.support.RxFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public abstract class BasePresentFragment<T extends MvpView> extends BaseFragment{
     private MvpView mvpView;
@@ -30,6 +35,7 @@ public abstract class BasePresentFragment<T extends MvpView> extends BaseFragmen
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        initView();
+        EventBus.getDefault().register(this);
        mvpView.regist(inflater);
        return mvpView.getRootView();
        }
@@ -39,6 +45,14 @@ public abstract class BasePresentFragment<T extends MvpView> extends BaseFragmen
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        EventBus.getDefault().unregister(this);
         mvpView.unRegist();
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onLoadNetworkEvent(loadNetworkEvent loadNetworkEvent){
+        onNetWorkErorRetry();
+    }
+
+    public  abstract void  onNetWorkErorRetry();
 }

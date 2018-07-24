@@ -70,8 +70,8 @@ public class SnackBarUtils {
      * @param backgroundColor
      * @return
      */
-    public static Snackbar IndefiniteSnackbar(View view, String message,int duration,int messageColor, int backgroundColor,@DrawableRes int resId ){
-        Snackbar snackbar = Snackbar.make(view,message, Snackbar.LENGTH_INDEFINITE).setDuration(duration);
+    public static Snackbar IndefiniteSnackbar(View view, String message,int messageColor, int backgroundColor,@DrawableRes int resId ){
+        Snackbar snackbar = Snackbar.make(view,message, Snackbar.LENGTH_INDEFINITE);
         setSnackbarColor(snackbar,messageColor,backgroundColor);
         addLeftDrawable(snackbar,resId);
         return snackbar;
@@ -113,8 +113,8 @@ public class SnackBarUtils {
      * @param type
      * @return
      */
-    public static Snackbar IndefiniteSnackbar(View view, String message,int duration,int type,@DrawableRes int resId ){
-        Snackbar snackbar = Snackbar.make(view,message, Snackbar.LENGTH_INDEFINITE).setDuration(duration);
+    public static Snackbar IndefiniteSnackbar(View view, String message,int type,@DrawableRes int resId ){
+        Snackbar snackbar = Snackbar.make(view,message, Snackbar.LENGTH_INDEFINITE);
         switchType(snackbar,type);
         addLeftDrawable(snackbar,resId);
         return snackbar;
