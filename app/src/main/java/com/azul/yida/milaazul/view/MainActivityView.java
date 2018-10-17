@@ -14,6 +14,7 @@ import android.view.View;
 import com.azul.yida.milaazul.R;
 import com.azul.yida.milaazul.net.Entity.Gank;
 import com.azul.yida.milaazul.presenter.DailyActivity;
+import com.azul.yida.milaazul.presenter.MilaActivity;
 import com.azul.yida.milaazul.view.adapter.myViewHolder;
 import com.azul.yida.milaazul.view.base.MvpView;
 import com.azul.yida.milaazul.weidget.SmartToolbar;
@@ -33,12 +34,8 @@ public class MainActivityView extends MvpView {
     SmartToolbar toolbar;
     @BindView(R.id.rl_modulename_refresh)
     BGARefreshLayout rlModulenameRefresh;
-
-
     private BaseQuickAdapter<Gank, myViewHolder> baseQuickAdapter;
 
-
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
 
 
     @Override
@@ -46,7 +43,12 @@ public class MainActivityView extends MvpView {
         super.regist(inflater);
         initRv();
         toolbar.setTitle("Gank");
-        toolbar.setNavigationIcon(R.color.colorPrimary);
+        toolbar.setNavigationIcon(R.mipmap.pic_round);
+        toolbar.post(()->{ toolbar.setNavigationOnClickListener(view -> {
+            Intent intent=new Intent(getActivity(),MilaActivity.class);
+            getActivity().startActivity(intent);
+        });});
+
     }
 
 
@@ -63,22 +65,18 @@ public class MainActivityView extends MvpView {
                 helper.setIamgeUrl(getActivity(), R.id.im_beauty, item.getUrl());
                 helper.setText(R.id.tv_time, item.getCreatedAt());
                 helper.addOnClickListener(R.id.im_beauty);
-                // helper.setImageResource(R.id.im_beauty, Resources.getSystem().getIdentifier("ProgressBar_progressDrawable", "drawable", "android"));
             }
         };
         recycleView.setLayoutManager(linearLayoutManager);
         recycleView.setAdapter(baseQuickAdapter);
         baseQuickAdapter.setOnItemChildClickListener((a, v, p) -> {
-            String string = ((Gank) a.getData().get(p)).getWho();
             Intent intent=new Intent(getActivity(),DailyActivity.class);
             intent.putExtra("gank",(Gank) a.getData().get(p));
             getActivity().startActivity(intent);
-            showToast(string);
         });
     }
 
     public void setData(List<Gank> arrayList, int page) {
-      // recycleView.setVisibility(View.GONE);
         if (page == 1) {
             baseQuickAdapter.replaceData(arrayList);
         } else {

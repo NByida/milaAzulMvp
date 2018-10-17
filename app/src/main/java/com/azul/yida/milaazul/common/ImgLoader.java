@@ -14,6 +14,8 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
+import com.rohitarya.glide.facedetection.transformation.FaceCenterCrop;
+import com.rohitarya.glide.facedetection.transformation.core.GlideFaceDetector;
 
 import java.util.concurrent.ExecutionException;
 
@@ -103,9 +105,9 @@ public class ImgLoader {
     /**
      * 加载人像居中的照片
      */
-//    public void faceCenter(Context context, String url, ImageView imageView) {
-//        Glide.with(context).load(url).transform(new FaceCenterCrop()).into(imageView);
-//    }
+    public void faceCenter(Context context, String url, ImageView imageView) {
+        Glide.with(context).load(url).transform(new FaceCenterCrop()).into(imageView);
+    }
 
     public void resume(Context context) {
         Glide.with(context).resumeRequests();

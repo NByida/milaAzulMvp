@@ -33,7 +33,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends BasePresentActivity<MainActivityView> implements BGARefreshLayout.BGARefreshLayoutDelegate  {
-
     private BGARefreshLayout mRefreshLayout;
     private int page=1;
     GankService service;
@@ -50,7 +49,6 @@ public class MainActivity extends BasePresentActivity<MainActivityView> implemen
 
 
     private void pullData(int p){
-        Mlog.t("pullData");
         mvpView.showLoading();
         service.getData(GankService.福利,10,p)
                 .observeOn(AndroidSchedulers.mainThread())

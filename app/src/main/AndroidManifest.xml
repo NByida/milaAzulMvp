@@ -4,8 +4,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name=" android.permission.SET_WALLPAPER_COMPONENT" />
     <application
         android:name=".AzulApplication.AzulApp"
         android:allowBackup="true"
@@ -20,9 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presenter.DailyActivity">
-
-        </activity>
+        <activity android:name=".presenter.DailyActivity"/>
+        <activity android:name=".presenter.WebActivity"/>
+        <activity android:name=".presenter.MilaActivity"/>
+        <activity android:name=".presenter.PictureLookupActivity"/>
     </application>
 
 

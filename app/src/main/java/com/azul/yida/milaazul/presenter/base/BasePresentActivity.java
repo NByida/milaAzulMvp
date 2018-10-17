@@ -34,6 +34,10 @@ public abstract class BasePresentActivity<T extends MvpView> extends BaseActivit
         initView();
         }
 
+    public T getMvpView() {
+        return mvpView;
+    }
+
     private void initView(){
         Class<T> viewClass=getPresentClass();
         try {
@@ -78,15 +82,15 @@ public abstract class BasePresentActivity<T extends MvpView> extends BaseActivit
         @Override
         public void accept(Throwable e) throws Exception {
             e.printStackTrace();
-            mvpView.showSnackbar();
-            Log.e("test",e.getClass().getName());
+
+            Log.e("accept",e.getClass().getName());
             mvpView.dissmissLoading();
             if (e instanceof SSLHandshakeException) {
                 //mvpView.showToast("请关闭");
             } else if (e instanceof InterruptedIOException ||
                     e instanceof SocketException
                     || e instanceof UnknownHostException) {
-               // mvpView.showToast("请检查网络设置");
+                mvpView.showSnackbar();
             } else {
                 //先注释掉，服务端总是报500，好烦。
                 //mvpView.showToast("请检查网络设置");
@@ -99,6 +103,7 @@ public abstract class BasePresentActivity<T extends MvpView> extends BaseActivit
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLoadNetworkEvent(loadNetworkEvent loadNetworkEvent){
+        if(loadNetworkEvent.getMvpView()!=mvpView)return;
         onNetWorkErorRetry();
     }
 

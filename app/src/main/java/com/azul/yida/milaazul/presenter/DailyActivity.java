@@ -46,8 +46,9 @@ public class DailyActivity extends BasePresentActivity<DailyView> {
                 .subscribe(
                         model->{
                             mvpView.dissmissLoading();
-                          if(model.isError())  mvpView.showToast("位置错误");
+                          if(model==null||model.isError())  mvpView.showToast("位置错误");
                           else{
+                              mvpView.setData( model.getResults());
 
                           }},consumer::accept);
     }

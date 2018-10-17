@@ -40,7 +40,7 @@ public interface GankService {
      * @param page 页数
      */
     @GET("data/{type}/{size}/{page}")
-   // @Headers("Cache-control:max-stale="+3600)
+//    @Headers("Cache-control:max-stale="+3600)
     Observable<GankModel<List<Gank>>> getData(
             @Path("type") String type, @Path("size") int size, @Path("page") int page);
 
@@ -52,6 +52,7 @@ public interface GankService {
     /**
      * 获取某一天的数据
      */
+//    @Headers("Cache-control:max-stale="+3600000)
     @GET("day/{year}/{month}/{day}") Observable<GankModel<DateModel>> getDataOnSomeday(
             @Path("year") String year, @Path("month") String month, @Path("day") String day);
 

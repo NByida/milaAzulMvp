@@ -29,6 +29,8 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.InterruptedIOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.SSLHandshakeException;
 
@@ -76,9 +78,7 @@ public abstract class MvpView implements BaseView {
         if(loadingFragment==null){
             this.loadingFragment=new BaseLoadingFragment();
         }
-
         loadingFragment.show(((AppCompatActivity)getActivity()).getSupportFragmentManager(),"");
-
     }
 
     @Override
@@ -133,7 +133,6 @@ public abstract class MvpView implements BaseView {
 
 
 
-
     public class errorConsumer implements Consumer<Throwable> {
 
         @Override
@@ -156,4 +155,10 @@ public abstract class MvpView implements BaseView {
     }
 
     public errorConsumer consumer=new errorConsumer();
+
+
+
+    public void  Back(View view){
+        getActivity().onBackPressed();
+    }
 }

@@ -1,16 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lay_content"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:gravity="center"
-    android:layout_height="wrap_content">
+    android:layout_height="100dp">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_title"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/imageView"
         android:textColor="@color/colorAccent"
         android:layout_gravity="center"
-        android:textSize="30dp"
+        android:singleLine="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView" />
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_auth"
+        android:textColor="@color/colorAccent"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_below="@+id/tv_title"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+    <TextView
+        android:id="@+id/tv_time"
+        android:textColor="@color/colorAccent"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/imageView"
+        android:layout_marginBottom="10dp"
+        android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:scaleType="centerCrop"
+        android:layout_margin="10dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:srcCompat="@mipmap/pic_logo" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorPrimary" />
+</RelativeLayout>

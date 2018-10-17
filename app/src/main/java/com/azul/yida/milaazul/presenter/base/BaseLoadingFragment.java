@@ -14,6 +14,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
@@ -72,9 +73,8 @@ public class BaseLoadingFragment extends BaseDialogFragment {
         dialog.setOnKeyListener((a,b,c)->{
             if(b == KeyEvent.KEYCODE_BACK){
                 backClicktimes++;
-                ToastUtil toastUtil=new ToastUtil();
                 ToastUtil.showToast(getContext(),"加载中。。。少侠留步，再按一次退出");
-                if(backClicktimes>1){
+                if(backClicktimes>2){
                     return false;
                 }
                 return true;
@@ -89,22 +89,19 @@ public class BaseLoadingFragment extends BaseDialogFragment {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void changeColor(){
-       // Mlog.t("tintColor@"+"111");
-//        ObjectAnimator.ofInt(circleProgressBar,"TintColor",AzulApp.getInstance().getResources().getColor(R.color.colorPrimary),AzulApp.getInstance().getResources().getColor(R.color.colorAccent))
-//        .setDuration(list.size()*1000).start();
-//        ValueAnimator valueAnimator = ValueAnimator.ofInt(circleProgressBar.getTintColor(),list.get(0),list.get(2),list.get(1),list.get(3),list.get(4),list.get(5),list.get(6));
-//        //ValueAnimator anim = ValueAnimator.ofObject(new ColorStateListEvaluator(), ColorStateList.valueOf(list.get(1)), ColorStateList.valueOf(list.get(2)));
-//        valueAnimator.setDuration(3000);
-//        valueAnimator.start();
+        long i=1l;
+        Observable observable= Observable.interval(0,400, TimeUnit.MILLISECONDS);
 
-        Observable.interval(0,400, TimeUnit.MILLISECONDS)
-                .compose(applyIOSchedulersAndLifecycle())
+        observable
+                //.compose(applyIOSchedulersAndLifecycle())
+                //.filter(n->circleProgressBar.isAttachedToWindow())
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(n->{
-                    ColorStateList colorStateList = ColorStateList.valueOf(list.get((int) (n%list.size())));
+                    //Mlog.t(n+"");
+                    ColorStateList colorStateList = ColorStateList.valueOf(list.get((int) ((long)n%list.size())));
                   circleProgressBar.setIndeterminateTintList(colorStateList);
+                  }).dispose();
 
-                });
     }
 
    class ColorStateListEvaluator implements TypeEvaluator {

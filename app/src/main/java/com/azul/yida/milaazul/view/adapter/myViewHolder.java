@@ -17,6 +17,6 @@ public class myViewHolder extends BaseViewHolder {
     }
 
     public void setIamgeUrl(Context context, @IdRes int id, String url){
-        Glide.with(context).load(url).error(R.color.colorAccent).diskCacheStrategy(DiskCacheStrategy.SOURCE ).into((ImageView) getView(id));
+        Glide.with(context).load(url).diskCacheStrategy(DiskCacheStrategy.SOURCE ).into((ImageView) getView(id));
     }
 }
