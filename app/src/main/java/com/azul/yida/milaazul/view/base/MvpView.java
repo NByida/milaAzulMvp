@@ -77,7 +77,7 @@ public abstract class MvpView implements BaseView {
     public void showLoading() {
         if(loadingFragment==null){
             this.loadingFragment=new BaseLoadingFragment();
-        }
+        }if(loadingFragment.isAdded())return;
         loadingFragment.show(((AppCompatActivity)getActivity()).getSupportFragmentManager(),"");
     }
 
