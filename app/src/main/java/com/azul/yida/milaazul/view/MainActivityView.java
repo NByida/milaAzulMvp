@@ -48,7 +48,6 @@ public class MainActivityView extends MvpView {
             Intent intent=new Intent(getActivity(),MilaActivity.class);
             getActivity().startActivity(intent);
         });});
-
     }
 
 
